@@ -23,7 +23,7 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        return view('prodi.create');
     }
 
     /**
@@ -31,7 +31,13 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Prodi::create([
+            'kode_prodi' => $request->kode_prodi,
+            'nama_prodi' => $request->nama_prodi,
+            'nama_kaprodi' => $request->nama_kaprodi,
+        ]);
+
+        return redirect('/prodi');
     }
 
     /**
@@ -47,7 +53,9 @@ class ProdiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+        
+        return view('prodi.edit', compact('prodi'));
     }
 
     /**
@@ -55,7 +63,15 @@ class ProdiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+
+        $prodi->update([
+            'kode_prodi' => $request->kode_prodi,
+            'nama_prodi' => $request->nama_prodi,
+            'nama_kaprodi' => $request->nama_kaprodi,
+        ]);
+
+        return redirect('/prodi');
     }
 
     /**
@@ -63,6 +79,10 @@ class ProdiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+
+        $prodi->delete();
+
+        return redirect('/prodi');
     }
 }
